@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:id="@+id/my_image_view"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        fresco:actualImageScaleType="centerCrop"
+        fresco:fadeDuration="300" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+        <TextView
+            android:id="@+id/my_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="洗睡｜那么白的狗，在高温的中午慢慢走"
+            android:textColor="@android:color/primary_text_light"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/my_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="有一年暑假，我见过一只白狗，那么白的狗，在高温的中午慢慢走。白得和环境和气温格格不入。前方有个坑，暴雨的积水还剩一半。"
+            android:textColor="@android:color/secondary_text_light" />
+
+    </LinearLayout>
+
+</LinearLayout>
