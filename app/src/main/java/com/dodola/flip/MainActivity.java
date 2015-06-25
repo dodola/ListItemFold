@@ -1,6 +1,5 @@
 package com.dodola.flip;
 
-import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBarActivity;
@@ -10,21 +9,14 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.dodola.flip.dummy.SimpleData;
-import com.loopj.android.http.AsyncHttpClient;
-import com.loopj.android.http.AsyncHttpRequest;
-import com.loopj.android.http.BaseJsonHttpResponseHandler;
-import com.loopj.android.http.JsonHttpResponseHandler;
-import com.loopj.android.http.ResponseHandlerInterface;
-
-import org.apache.http.Header;
-import org.apache.http.client.methods.HttpUriRequest;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.protocol.HttpContext;
-import org.json.JSONObject;
 
 
-public class MainActivity extends ActionBarActivity implements ItemFragment.OnFragmentInteractionListener {
+public class MainActivity extends ActionBarActivity implements RecyclerFragment.OnFragmentInteractionListener {
     FoldLayout foldLayout;
+
+    @Override
+    public void onBackPressed() {
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +24,7 @@ public class MainActivity extends ActionBarActivity implements ItemFragment.OnFr
         setContentView(R.layout.activity_main);
         foldLayout = (FoldLayout) this.findViewById(R.id.main_view_container);
         foldLayout.setFragmentManager(this.getSupportFragmentManager());
-        ItemFragment feedFragment = ItemFragment.newInstance();
+        RecyclerFragment feedFragment = RecyclerFragment.newInstance();
         final FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         Fragment detailFrag = getSupportFragmentManager().findFragmentByTag(FoldLayout.FRAGMENT_DETAIL_VIEW_TAG
         );

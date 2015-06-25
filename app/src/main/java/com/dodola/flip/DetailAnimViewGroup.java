@@ -131,8 +131,8 @@ public class DetailAnimViewGroup extends ViewGroup {
         this.foldLinePaint.setColor(-1);
         this.foldLinePaint.setAlpha(0);
         int height = Math.round(((float) getMeasuredHeight()) / 2.0f);
-        LinearGradient firstShadowGradient = new LinearGradient(0.0f, 0.0f, 0.0f, (float) height, 1056964608, -1157627904, TileMode.CLAMP);
-        LinearGradient secondShadowGradient = new LinearGradient(0.0f, 0.0f, 0.0f, (float) height, -1157627904, 0, TileMode.CLAMP);
+        LinearGradient firstShadowGradient = new LinearGradient(0.0f, 0.0f, 0.0f, (float) height, 0x3f000000, 0xbb000000, TileMode.CLAMP);
+        LinearGradient secondShadowGradient = new LinearGradient(0.0f, 0.0f, 0.0f, (float) height, 0xbb000000, 0, TileMode.CLAMP);
         this.firstShadowGradientPaint.setShader(firstShadowGradient);
         this.secondShadowGradientPaint.setShader(secondShadowGradient);
         this.firstHalfRect = new Rect();

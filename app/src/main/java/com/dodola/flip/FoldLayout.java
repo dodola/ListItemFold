@@ -144,7 +144,6 @@ public class FoldLayout extends FrameLayout implements OnScaleGestureListener {
             this.main = null;
             this.mainWrapper = null;
         } else {
-            Log.w("boxer", "Removing a view that UnfoldLayout doesn't know about");
         }
     }
 
@@ -158,7 +157,7 @@ public class FoldLayout extends FrameLayout implements OnScaleGestureListener {
                 handled = this.isTouchReservedForPinch || handleTouch(ev);
             }
         }
-        if (ev.getAction() == 1 || ev.getAction() == 3) {
+        if (ev.getAction() == MotionEvent.ACTION_UP || ev.getAction() == MotionEvent.ACTION_CANCEL) {
             this.isTouchReservedForPinch = false;
         }
         return handled;
@@ -171,7 +170,7 @@ public class FoldLayout extends FrameLayout implements OnScaleGestureListener {
         } else {
             handled = this.pinchDetector.onTouchEvent(ev);
         }
-        if (ev.getAction() == 1 || ev.getAction() == 3) {
+        if (ev.getAction() == MotionEvent.ACTION_UP || ev.getAction() == MotionEvent.ACTION_CANCEL) {
             this.isTouchReservedForPinch = false;
         }
         return handled;
@@ -181,7 +180,7 @@ public class FoldLayout extends FrameLayout implements OnScaleGestureListener {
         if (this.detail == null) {
             return false;
         }
-        if (ev.getAction() == 0) {
+        if (ev.getAction() == MotionEvent.ACTION_DOWN) {
             this.downY = ev.getY();
         }
         if (!this.startedSwipeToClose) {
@@ -206,7 +205,7 @@ public class FoldLayout extends FrameLayout implements OnScaleGestureListener {
         if (!this.startedSwipeToClose) {
             return false;
         }
-        if (ev.getAction() == 2) {
+        if (ev.getAction() == MotionEvent.ACTION_MOVE) {
             this.velocityTracker.addMovement(ev);
             float totalDistanceY = ev.getY() - this.downY;
             if (!this.closeDown) {
@@ -218,7 +217,7 @@ public class FoldLayout extends FrameLayout implements OnScaleGestureListener {
             this.main.setTopFoldFactor(DEFAULT_BACKOFF_MULT - percentY);
             this.main.setBottomFoldFactor(DEFAULT_BACKOFF_MULT - percentY);
         }
-        if (ev.getAction() == 1 || ev.getAction() == 3) {
+        if (ev.getAction() == MotionEvent.ACTION_UP || ev.getAction() == MotionEvent.ACTION_CANCEL) {
             this.velocityTracker.computeCurrentVelocity(1);
             this.startedSwipeToClose = false;
             handleFling(this.velocityTracker.getYVelocity());
@@ -330,7 +329,7 @@ public class FoldLayout extends FrameLayout implements OnScaleGestureListener {
 
     void clearAnimations() {
         for (WeakReference<ValueAnimator> reference : this.animatorWeakHashMap) {
-            ValueAnimator anim = (ValueAnimator) reference.get();
+            ValueAnimator anim = reference.get();
             if (anim != null) {
                 anim.cancel();
             }

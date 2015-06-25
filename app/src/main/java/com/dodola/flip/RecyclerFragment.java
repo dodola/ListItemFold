@@ -1,19 +1,18 @@
 package com.dodola.flip;
 
 import android.app.Activity;
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ListAdapter;
-import android.widget.TextView;
 
 import com.dodola.flip.dummy.ItemDataAdapter;
+import com.dodola.flip.dummy.RecyclerDataAdapter;
 import com.dodola.flip.dummy.SimpleData;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -34,15 +33,15 @@ import java.util.List;
  * Activities containing this fragment MUST implement the {@link OnFragmentInteractionListener}
  * interface.
  */
-public class ItemFragment extends Fragment implements AbsListView.OnItemClickListener {
+public class RecyclerFragment extends Fragment implements RecyclerDataAdapter.IOnRecyclerItemClick {
 
     private OnFragmentInteractionListener mListener;
-    private AbsListView mListView;
-    private ItemDataAdapter mAdapter;
+    private RecyclerView mRecyclerView;
+    private RecyclerDataAdapter mAdapter;
 
     // TODO: Rename and change types of parameters
-    public static ItemFragment newInstance() {
-        ItemFragment fragment = new ItemFragment();
+    public static RecyclerFragment newInstance() {
+        RecyclerFragment fragment = new RecyclerFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
@@ -52,7 +51,7 @@ public class ItemFragment extends Fragment implements AbsListView.OnItemClickLis
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
      */
-    public ItemFragment() {
+    public RecyclerFragment() {
     }
 
     @Override
@@ -68,12 +67,12 @@ public class ItemFragment extends Fragment implements AbsListView.OnItemClickLis
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_item_list, container, false);
-        mAdapter = new ItemDataAdapter(getActivity());
-        mListView = (AbsListView) view.findViewById(android.R.id.list);
-        mListView.setAdapter(mAdapter);
-
-        // Set OnItemClickListener so we can be notified on item clicks
-        mListView.setOnItemClickListener(this);
+        mAdapter = new RecyclerDataAdapter(getActivity());
+        mRecyclerView = (RecyclerView) view.findViewById(R.id.recycler);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
+        mRecyclerView.setLayoutManager(layoutManager);
+        mRecyclerView.setAdapter(mAdapter);
+        mAdapter.setOnItemClick(this);
         DetailAnimViewGroup wrapper = new DetailAnimViewGroup(inflater.getContext(), view, 0);
         loadData();
         return wrapper;
@@ -96,10 +95,8 @@ public class ItemFragment extends Fragment implements AbsListView.OnItemClickLis
         mListener = null;
     }
 
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+    public void onItemClick(SimpleData data, View view) {
         if (null != mListener) {
-            SimpleData data = (SimpleData) parent.getItemAtPosition(position);
             mListener.onFragmentInteraction(data, view);
         }
     }
