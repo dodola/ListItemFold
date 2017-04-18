@@ -2,7 +2,7 @@
 
 ListView折叠效果
 
-##Screenshots
+## Screenshots
 
 ![image](https://raw.githubusercontent.com/dodola/ListItemFold/master/screenshot/fold.gif)
 
@@ -10,7 +10,7 @@ ListView折叠效果
 
 
 
-##License
+## License
 
 The MIT License (MIT)
 
